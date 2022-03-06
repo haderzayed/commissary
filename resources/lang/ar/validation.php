@@ -135,6 +135,18 @@ return [
         'name_city'=>'اسم المدينه',
         'Country_id'=>'البلد',
         'Territory_id'=>'الاقليم',
-        'government_id'=>'المحافظه'
+        'government_id'=>'المحافظه',
+        'name'=>'الاسم',
+        'user_name'=>'اسم المستخدم',
+        'phone'=>'رقم التليفون',
+        'email'=>'البريد الالكتروني',
+        'government'=>'اسم المحافظه',
+        'City_id'=>'اسم المدينه',
+        'representative_city_id'=>'اسم المدينه المشرف عليها',
+        'password'=>'الرقم السري',
+        'id_number'=>'الرقم القومي',
+        'role_id'=>'الصلاحيه',
+
+
     ],
 ];

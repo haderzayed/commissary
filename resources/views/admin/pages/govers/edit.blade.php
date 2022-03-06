@@ -138,7 +138,7 @@
 
                 var id = $( "#sel_count" ).val();
                 $.ajax({
-                    url: '/AllGovernorate/divGaver/'+id,
+                    url: '/getTerritory/'+id,
                     type: 'get',
                     dataType: 'json',
                     success: function(response){

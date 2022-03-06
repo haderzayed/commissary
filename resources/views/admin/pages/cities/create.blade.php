@@ -183,7 +183,7 @@
 
 
             $('#terr').change(function(){
-               alert('kkk');
+
                 $('#gover').empty();
 
                 var id = $( "#terr" ).val();

@@ -20,25 +20,27 @@ class Representative extends Model
     protected $fillable = [
         'name', 'email', 'password' ,'role_id', 'username' ,'mobile' ,'gavers' ,'city','id_number' ,'role'
     ];
-    public function hasAbility ($permissions)
-    {
-        $roles = $this->role;
-        if ($roles){
-            return false;
-        }
-        else{
-            foreach ($roles->permissions as $permission){
-                if (is_array($permissions) && in_array($permissions , $permission)){
-                    return true;
-                }else  if(is_string(($permissions) && strcmp($permissions, $permission))== 0){
-                    return true;
+//    public function hasAbility ($permissions)
+//    {
+//        $roles = $this->role;
+//        if ($roles){
+//            return false;
+//        }
+//        else{
+//            foreach ($roles->permissions as $permission){
+//                if (is_array($permissions) && in_array($permissions , $permission)){
+//                    return true;
+//                }else  if(is_string(($permissions) && strcmp($permissions, $permission))== 0){
+//                    return true;
+//
+//                }
+//                return false;
+//            }
+//        }
+//
+//    }
 
-                }
-                return false;
-            }
-        }
 
-    }
     public function cities()
     {
         return $this->belongsTo('App\Models\City', 'city','id');

@@ -71,7 +71,7 @@
                                                         <select
                                                             class="form-control selectpicker"
                                                             data-live-search="true"      name="Country_id">
-                                                            <option value="{{$territorys->Country_id}}"> {{$territorys-> countryt -> name_coun }}
+                                                            <option  >   أختار الدوله
 
                                                             @foreach($countries as $corp)
                                                                 <option value="{{$corp->id}}"> {{$corp->name_coun}}

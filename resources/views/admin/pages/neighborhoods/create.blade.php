@@ -117,7 +117,7 @@
                                                                 <div class="form-group">
                                                                     <label for="projectinput1">  أختار المدينه
                                                                     </label>
-                                                                    <select id="city"
+                                                                    <select id="city_sel"
                                                                             class="form-control"
                                                                             name="City_id">
                                                                         <option value=""> اختار المدينه
@@ -172,7 +172,7 @@
             $('#sel_count').change(function(){
                 $('#terr').empty();
                 $('#gover').empty();
-                $('#city').empty();
+                $('#city_sel').empty();
 
                 var id = $( "#sel_count" ).val();
                 $.ajax({
@@ -229,7 +229,7 @@
 
             $('#gover').change(function(){
 
-                $('#city').empty();
+                $('#city_sel').empty();
 
                 var id = $( "#gover" ).val();
                 $.ajax({
@@ -247,7 +247,7 @@
                                 var id = response['data'][i].id; // subject id
                                 var name = (response['data'][i].name_city) ; // subject name
                                 var option = "<option value='"+id+"'>"+name+"</option>";
-                                $("#city").append(option);
+                                $("#city_sel").append(option);
                             }
                         }
                     }

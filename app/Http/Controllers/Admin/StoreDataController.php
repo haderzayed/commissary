@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDataRequest;
+use App\Models\Attachment;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\FieldStore;
 use App\Models\Governorate;
 use App\Models\ReasonsNoContract;
@@ -16,6 +18,8 @@ use App\Traits\ImageUpload;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,86 +46,69 @@ class StoreDataController extends Controller
     {
         $resontract = ReasonsNoContract::all();
         $corporatefiels = FieldStore::all();
-        return view('admin.pages.storedata.create' ,compact('resontract' ,'corporatefiels'));
+        $countries = Country::all()->sortByDesc('id');
+        return view('admin.pages.storedata.create' ,compact('resontract' ,'corporatefiels','countries'));
     }
 
 
     public function store(Request $request)
     {
-//        dd($request);
-//        $validator = Validator::make($request->all(), [
-//            'name' => 'required|string:field_stores',
-//            'activestore' => 'required',
-//            'mob' => 'required',
-//            'tel' => 'required',
-//            'email' => 'required',
-//            'mangeer' => 'required',
-//            'adress' => 'required',
-//            'owner ' => 'required',
-//            'employ ' => 'required',
-//            'telemploy ' => 'required',
-//            'datevisite ' => 'required',
-//            'firstvisit ' => 'required',
-//            'anothervisite ' => 'required',
-//            'numbranches ' => 'required',
-//            'levelstore ' => 'required',
-//            'timework ' => 'required',
-//            'holidays ' => 'required',
-//            'papers ' => 'required',
-//            'opinions ' => 'required',
-//            'nots' => 'required',
-//
-//        ]);
-//        if ($validator->fails()) {
-//            return $this->returnError($validator->errors()->all());
-//        }
-//        try {
 
-
-        $corfield = StoreData::create([
-            'name' => $request->name,
-            'activestore' => $request->activestore,
-            'mob' => $request->mob,
-            'tel' => $request->tel,
-            'email' => $request->email,
-            'mangeer' => $request->mangeer,
-            'adress' => $request->adress,
-            'owner' => $request->owner,
-            'employ' => $request->employ,
-            'telemploy' => $request->telemploy,
-            'datevisite' => $request->datevisite,
-            'contract' => $request->contract,
-            'rcontract' => $request->rcontract,
-            'firstvisit' => $request->firstvisit,
-            'anothervisite' => $request->anothervisite,
-            'numbranches' => $request->numbranches,
-            'levelstore' => $request->levelstore,
-            'timework' => $request->timework,
-            'holidays' => $request->holidays,
-            'papers' => $request->papers,
-            'opinions' => $request->opinions,
-            'nots' => $request->nots,
-//            'title' => $request->title,
-//            'desc' => $request->desc,
-
+        $request->validate([
+            'name' => 'required',
+            'activestore' => 'required',
+            'mob' => 'required',
+            'tel' => 'required',
+            'email' => 'required|between:3,64|email|unique:store_data',
+            'Country_id' => 'required',
+            'Territory_id' => 'required',
+            'Governorate_id' => 'required',
+            'City_id' => 'required',
+            'neighborhood_id' => 'required',
+            'adress' => 'required',
+            'timework' => 'required',
+            'mangeer' => 'required',
+            'owner' => 'required',
+            'employ' => 'required',
+            'telemploy' => 'required',
+            'numbranches' => 'required',
+            'levelstore' => 'required',
+            'holidays' => 'required',
+            'datevisite' => 'required',
+            'firstvisit' => 'required',
+            'anothervisite' => 'required',
+            'contract' => 'required',
+            'noncontract' => 'required',
+            'opinions' => 'required',
+            'nots' => 'required',
+            'papers.*' => 'mimes:png,jpg,jpeg,gif,svg|max:2048',
         ]);
 
-//        dd($sliders);
-            return redirect()->route('store.index')->with(['success' => 'تم التحديث بنجاح']);
 
+        try {
+            DB::beginTransaction();
 
+            $store=StoreData::Create($request->except('papers'));
+            $files=$request->file('papers');
+            if($request->hasFile('papers')){
+                foreach ($files as $file){
+                   $file_name=$file->store("stores/$store->name",'public');
+                   Attachment::create([
+                       'file_name'=>$file_name,
+                       'store_id'=>$store->id
+                   ]);
+                }
+            }
 
-//            return $this->returnData('تم اضافة عضو', $data, 201);
-//    } catch (\Exception $exception) {
-//
-////return $this->returnError($exception->getMessage(), 200);
-//            return redirect()->route('storedata.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
-//    }
-//            return redirect()->route('admin.storedata')->with(['success' => 'تم الحفظ بنجاح']);
-//        } catch (\Exception $ex) {
-//            return redirect()->route('admin.storedata')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
-//
-//        }
+            DB::commit();
+
+            return redirect()->route('store.index')->with(['success' => " تم اضافة محل جديد بنجاح"]);
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return $exception;
+            return $this->returnError('حدث خطأ ما, الرجاء المحاولة لاحقا');
+        }
     }
 
     public function show($id)

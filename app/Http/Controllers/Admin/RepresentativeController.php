@@ -27,12 +27,12 @@ class RepresentativeController extends Controller
     }
     public function index()
     {
-//        dd(Auth::user());
-        $users = Representative::latest()
-            ->where('id', '<>', auth()->id ())
-            ->where('role', 'representative')
-//            ->where('city', Auth::user()->representative_city_id)
-            ->get();
+//        $users = Representative::latest()
+//            ->where('id', '<>', auth()->id ())
+//            ->where('role', 'representative')
+//            ->get();
+        $users=User::role('representative')->get();
+        //dd($users);
         return view("admin.pages.usersrpesentavies.index",compact('users'));
     }
 

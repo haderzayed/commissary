@@ -12,7 +12,7 @@
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="/home">الرئيسية </a>
                                         </li>
-                                        <li class="breadcrumb-item"><a href="{{route('roles.index')}}">كل صلاحية   </a>
+                                        <li class="breadcrumb-item"><a href="{{route('roles.index')}}">كل الصلاحيات </a>
                                         </li>
                                     </ol>
                                 </div>
@@ -26,7 +26,7 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title" id="basic-layout-form">أضافة صلاحية   </h4>
+                                            <h4 class="card-title" id="basic-layout-form">تعديل الصلاحية   </h4>
                                             <a class="heading-elements-toggle"><i
                                                     class="la la-ellipsis-v font-medium-3"></i></a>
                                             <div class="heading-elements">
@@ -63,6 +63,13 @@
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                 </div>
+                                                             <div class="col-lg-6">
+                                                                 <div class="form-group">
+                                                                     <label class="checkbox-inline">
+                                                                         <input  class="chk_box" type="checkbox" name="select-all" id="select-all"> تحديد الكل
+                                                                     </label>
+                                                                 </div>
+                                                             </div>
                                                                 @foreach ($permissions as $value)
                                                                  <div class="col-lg-6">
                                                                          <div class="form-group">
@@ -98,4 +105,19 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $('#select-all').click(function(event) {
+            if(this.checked) {
+                // Iterate each checkbox
+                $(':checkbox').each(function() {
+                    this.checked = true;
+                });
+            } else {
+                $(':checkbox').each(function() {
+                    this.checked = false;
+                });
+            }
+        });
+    </script>
 @endsection

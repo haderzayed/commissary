@@ -105,12 +105,13 @@ Route::group(['namespace'=>'Admin' ],function (){
     Route::resource('representative', 'RepresentativeController');
     Route::resource('store', 'StoreDataController');
     Route::resource('contract', 'ReasonsNoContractController');
-    Route::resource('fields', 'CorporateFieldsController')->except(['show', 'update', 'delete']);
+    Route::resource('fields', 'CorporateFieldsController');
 
 
     Route::get('/getTerritory/{id}','CityController@getTerritory');
     Route::get('/getGovernment/{id}','CityController@getGovernment');
     Route::get('/get-city/{id}','CityController@getCity');
+    Route::get('/get-neighborhood/{id}','CityController@getNeighborhood');
     Route::get('representative/divGaver/{id}', 'RepresentativeController@getcityGaver')->name('divGaver');
     Route::get('users/divGaver/{id}', 'UsersController@getcityGaver')->name('divGaver');
 

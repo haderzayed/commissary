@@ -54,7 +54,6 @@
                                                     <thead class="">
                                     <tr>
                                         <th>اسم الصلاحية </th>
-                                        <th> الصلاحية </th>
                                         <th>الاجراءات</th>
                                     </tr>
                                     </thead>
@@ -75,11 +74,11 @@
                                                     <a href="{{route('roles.edit',$role -> id)}}"
                                                        class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
-                                                    <form method="post" action="{{route('roles.destroy', $role->id)}}" class="d-inline">
-                                                        {{ method_field('DELETE') }}
-                                                        {{ csrf_field() }}
-                                                        <button     class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>
-                                                    </form>
+{{--                                                    <form method="post" action="{{route('roles.destroy', $role->id)}}" class="d-inline">--}}
+{{--                                                        {{ method_field('DELETE') }}--}}
+{{--                                                        {{ csrf_field() }}--}}
+{{--                                                        <button     class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>--}}
+{{--                                                    </form>--}}
 
                                                 </div>
                                             </td>
@@ -113,3 +112,4 @@
     </div>
     <!-- /.content-wrapper -->
 @endsection
+

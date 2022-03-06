@@ -42,7 +42,7 @@ class CorporateFieldsController extends Controller
                 'title' => $request->title,
                 'desc' => $request->desc,
             ]);
-            return redirect()->route('fields.index')->with(['success' => 'تم اضافة عضو']);
+            return redirect()->route('fields.index')->with(['success' => 'تم اضافة مجال جديد']);
         }
         catch (\Exception $exception)
         {
@@ -54,15 +54,13 @@ class CorporateFieldsController extends Controller
     {
         //
     }
-    public function edit($corop_id)
+    public function edit($id)
     {
-        $abouts = FieldStore::find($corop_id);
+        $filed = FieldStore::find($id);
 
-        if (!$abouts)
-            return redirect()->route('fields.index')->with(['error' => 'هذا القسم غير موجود ']);
-
-        return view('admin.pages.fieldstore.edit', compact('abouts'));
+        return view('admin.pages.fieldstore.edit', compact('filed'));
     }
+
     public function update($corop_id, Request $request)
 
     {
@@ -71,7 +69,7 @@ class CorporateFieldsController extends Controller
             if (!$abouts)
                 return redirect()->route('fields.index')->with([ 'error' =>'هذا القسم غير موجود ']);
             $abouts->update($request->all());
-            return redirect()->route('fields.index')->with(['success' => 'تم حذف القسم بنجاح']);
+            return redirect()->route('fields.index')->with(['success' => 'تم تعديل المجال بنجاح']);
         } catch (\Exception $exception)
         {
             return redirect()->route('fields.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
@@ -82,13 +80,10 @@ class CorporateFieldsController extends Controller
     {
 
         try {
-            $abouts = FieldStore::find($id);
-            if (!$abouts)
-                return redirect()->route('fields.index')->with(['error' => 'هذا القسم غير موجود ']);
+            $field = FieldStore::find($id);
 
-
-            $abouts->delete();
-            return redirect()->route('fields.index')->with(['success' => 'تم حذف القسم بنجاح']);
+            $field->delete();
+            return redirect()->route('fields.index')->with(['success' => 'تم حذف المجال بنجاح']);
 
         } catch (\Exception $ex) {
             return redirect()->route('fields.index')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);

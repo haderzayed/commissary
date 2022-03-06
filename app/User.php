@@ -26,7 +26,7 @@ class User extends Authenticatable
 
     public function cities()
     {
-        return $this->belongsTo('App\Models\City', 'city','id');
+        return $this->belongsTo('App\Models\City', 'city','id')->withDefault();
     }
     public function govers()
     {

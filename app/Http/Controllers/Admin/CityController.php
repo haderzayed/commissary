@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Governorate;
+use App\Models\Neighborhood;
 use App\Models\ReasonsNoContract;
 use App\Models\Territory;
 use http\Client;
@@ -121,6 +122,11 @@ class CityController extends Controller
     {
         $city= City::where('Governorate_id',$id)->get();
         return response()->json(['data'=> $city]);
+    }
+    public function getNeighborhood($id)
+    {
+        $neighborhood= Neighborhood::where('City_id',$id)->get();
+        return response()->json(['data'=> $neighborhood]);
     }
 }
 

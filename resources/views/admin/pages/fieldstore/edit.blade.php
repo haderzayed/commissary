@@ -44,7 +44,7 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <form class="form"
-                                              action="{{route('fields.update',$abouts -> id)}}"
+                                              action="{{route('fields.update',$filed -> id)}}"
                                               method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
@@ -54,7 +54,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label for="projectinput1"> العنوان  </label>
-                                                        <input type="text" value="{{$abouts->title}}" id="title"
+                                                        <input type="text" value="{{$filed->title}}" id="title"
                                                                class="form-control"
                                                                placeholder="  "
                                                                name="title">
@@ -69,8 +69,8 @@
                                                         <label for="projectinput1"> الوصف </label>
                                                         <textarea id="froala-editor"
                                                                   class="form-control"
-                                                                  value="{{$abouts->desc}}"placeholder="  "
-                                                                  name="desc">{{$abouts->desc}} </textarea>
+                                                                  value="{{$filed->desc}}"placeholder="  "
+                                                                  name="desc">{{$filed->desc}} </textarea>
                                                         @error("desc")
                                                         <span class="text-danger"> هذا الحقل مطلوب</span>
                                                         @enderror

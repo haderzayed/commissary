@@ -3,7 +3,8 @@
 @section('content')
 
 
-
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
@@ -116,6 +117,88 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+
+                                                            <label for="projectinput1">  أختار الدوله
+                                                            </label>
+                                                            <select id="sel_count"
+                                                                    class="form-control selectpicker" data-live-search="true"
+                                                                    name="Country_id">
+                                                                @if(count($countries) > 0)
+                                                                    <option value=""> من فضلك اختار الدوله</option>
+                                                                    @foreach($countries as $corp)
+                                                                        <option value="{{$corp->id}}"> {{$corp->name_coun}}
+                                                                        </option>
+                                                                    @endforeach
+                                                                @else
+                                                                    <option value="" disabled>لايوجد مدينة</option>
+                                                                @endif
+                                                            </select>
+                                                            @error("Country_id")
+                                                            <span class="text-danger">  {{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  أختار الاقليم
+                                                            </label>
+                                                            <select id="terr"
+                                                                    class="form-control"
+                                                                    name="Territory_id">
+                                                                <option value=""> اختار الاقليم
+                                                                </option>
+                                                            </select>
+                                                            @error("Territory_id")
+                                                            <span class="text-danger">  {{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  أختار المحافظة
+                                                            </label>
+                                                            <select id="gover"
+                                                                    class="form-control"
+                                                                    name="Governorate_id">
+                                                                <option value=""> اختار المحافظة
+                                                                </option>
+                                                            </select>
+                                                            @error("Governorate_id")
+                                                            <span class="text-danger">  {{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  أختار المدينه
+                                                            </label>
+                                                            <select id="city_sel" class="form-control" name="City_id">
+                                                                <option value="0"> اختار المدينه</option>
+                                                            </select>
+                                                            @error("City_id")
+                                                            <span class="text-danger">  {{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  أختار الحي
+                                                            </label>
+                                                            <select id="neigh" class="form-control" name="neighborhood_id">
+                                                                <option value=""> اختار الحي</option>
+                                                            </select>
+                                                            @error("neighborhoods_id")
+                                                            <span class="text-danger">  {{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
                                                             <label for="projectinput1"> العنوان  </label>
                                                             <input type="text" value=""
                                                                    class="form-control"
@@ -126,6 +209,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> اوقات العمل  </label>
@@ -204,7 +288,7 @@
                                                             <select type="text" value=""
                                                                     class="form-control"
                                                                     placeholder=" "
-                                                                    name="numbranches">
+                                                                    name="levelstore">
                                                                 <option value="A">A</option>
                                                                 <option value="A">B</option>
                                                                 <option value="A">C</option>
@@ -294,7 +378,7 @@
                                                             </label>
                                                             <select
                                                                 class="form-control"
-                                                                name="rcontract">
+                                                                name="noncontract">
 
                                                                 @foreach($resontract as $corp)
                                                                     <option value="{{$corp->id}}"> {{$corp->title}}
@@ -311,7 +395,7 @@
                                                             <label for="projectinput1">المستندات المطلوبه</label>
                                                             <input type="file" value=""
                                                                    class="form-control"
-                                                                   name="papers">
+                                                                   name="papers[]" multiple>
                                                             @error("papers")
                                                             <span class="text-danger"> هذا الحقل مطلوب</span>
                                                             @enderror
@@ -374,6 +458,130 @@
             </div>
         </div>
     </div>
+        </div>
+    </div>
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+
+    <script>
+        $(document).ready(function(){
+
+            $('#sel_count').change(function(){
+                // $('#terr').empty();
+                // $('#gover').empty();
+                // $('#city_sel').empty();
+
+                var id = $( "#sel_count" ).val();
+                $.ajax({
+                    url: '/getTerritory/'+id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response){
+                        var len = 0;
+                        if(response['data'] != null){
+                            len = response['data'].length;
+                        }
+                        if(len > 0){
+                            // Read data and create <option >
+                            for(var i=0; i<len; i++){
+                                // var id = response['data'][i].id;
+                                var id = response['data'][i].id; // subject id
+                                var name = (response['data'][i].name_terr) ; // subject name
+                                var option = "<option value='"+id+"'>"+name+"</option>";
+                                $("#terr").append(option);
+                                //  $('#sub').append(sub);
+                            }
+                        }
+                    }
+                }); //end ajax
+            });//end on change
+
+
+            $('#terr').change(function(){
+
+               // $('#gover').empty();
+
+                var id = $( "#terr" ).val();
+                $.ajax({
+                    url: '/getGovernment/'+id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response){
+                        var len = 0;
+                        if(response['data'] != null){
+                            len = response['data'].length;
+                        }
+                        if(len > 0){
+                            for(var i=0; i<len; i++){
+                                // var id = response['data'][i].id;
+                                var id = response['data'][i].id; // subject id
+                                var name = (response['data'][i].name_gover) ; // subject name
+                                var option = "<option value='"+id+"'>"+name+"</option>";
+                                $("#gover").append(option);
+                            }
+                        }
+                    }
+                }); //end ajax
+            });//end on change
+
+            $('#gover').change(function(){
+
+              //  $('#city_sel').empty();
+
+                var id = $( "#gover" ).val();
+                $.ajax({
+                    url: '/get-city/'+id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response){
+                        var len = 0;
+                        if(response['data'] != null){
+                            len = response['data'].length;
+                        }
+                        if(len > 0){
+                            for(var i=0; i<len; i++){
+                                // var id = response['data'][i].id;
+                                var id = response['data'][i].id; // subject id
+                                var name = (response['data'][i].name_city) ; // subject name
+                                var option = "<option value='"+id+"'>"+name+"</option>";
+                                $("#city_sel").append(option);
+                            }
+                        }
+                    }
+                }); //end ajax
+            });//end on change
+
+            $('#city_sel').change(function(){
+                //$('#neighborhood').empty();
+                var id = $( "#city_sel" ).val();
+                $.ajax({
+                    url: '/get-neighborhood/'+id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response){
+                        var len = 0;
+                        if(response['data'] != null){
+                            len = response['data'].length;
+                        }
+                        if(len > 0){
+                            for(var i=0; i<len; i++){
+                                // var id = response['data'][i].id;
+                                var id = response['data'][i].id; // subject id
+                                var neigh = (response['data'][i].name) ; // subject name
+                                var option = "<option value='"+id+"'>"+neigh+"</option>";
+                                $("#neigh").append(option);
+                            }
+                        }
+                    }
+                }); //end ajax
+            });//end on change
+        });
+    </script>
 @endsection

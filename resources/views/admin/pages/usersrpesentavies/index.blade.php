@@ -67,7 +67,8 @@
                                                 @foreach($users as $user)
                                                     <tr>
                                                         <td>{{$user -> name}}</td>
-                                                        <td>{{$user ->roles->name ??  "مندوب " }}</td>
+
+                                                        <td>{{$user->roles()->first()->view_name }}</td>
                                                         <td>{{$user ->cities->name_city ?? "" }}</td>
 
                                                         <td>
@@ -78,7 +79,7 @@
 
 
 
-                                                                <form method="post" action="{{route('Representative.destroy',$user -> id)}}" class="d-inline">
+                                                                <form method="post" action="{{route('representative.destroy',$user -> id)}}" class="d-inline">
                                                                     {{ method_field('DELETE') }}
                                                                     {{ csrf_field() }}
                                                                     <button     class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</button>

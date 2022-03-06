@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class ReasonsNoContractController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:index_contract|edit_contract|delete_contract', ['only' => ['index','show']]);
+        $this->middleware('permission:create_contract', ['only' => ['create','store']]);
+        $this->middleware('permission:edit_contract', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete_contract', ['only' => ['destroy']]);
+
+    }
     public function index()
     {
         $resontract = ReasonsNoContract::all();

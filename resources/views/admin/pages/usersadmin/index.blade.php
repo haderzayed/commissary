@@ -46,8 +46,9 @@
                                     </div>
                                 </div>
 
-                                @include('flash::message')
 
+                                @include('admin.includes.alerts.success')
+                                @include('admin.includes.alerts.errors')
 
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
